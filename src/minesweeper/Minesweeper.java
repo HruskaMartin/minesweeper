@@ -14,7 +14,7 @@ public class Minesweeper {
 	private UserInterface UserInterface;
 
 	/**
-	 * Constructor.
+	 * Constructooor.
 	 */
 	private Minesweeper() {
 		Field field = new Field(10, 10, 9);
@@ -44,12 +44,7 @@ public class Minesweeper {
 		}
 	}
 
-	/**
-	 * Main method.
-	 * 
-	 * @param args
-	 *            arguments
-	 */
+	
 	public static void main(String[] args) {
 		new Minesweeper();
 	}
