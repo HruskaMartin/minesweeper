@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import minesweeper.UserInterface;
 import minesweeper.core.Clue;
 import minesweeper.core.Field;
+import minesweeper.core.GameState;
 import minesweeper.core.Mine;
 import minesweeper.core.Tile;
 import minesweeper.core.Tile.State;
@@ -44,7 +45,12 @@ public class ConsoleUI implements UserInterface {
         do {
             update();
             processInput();
-            throw new UnsupportedOperationException("Resolve the game state - winning or loosing condition.");
+            /*
+            if(field.getState == GameState.SOLVED) {
+            	System.exit(0);
+            } else {
+            	System.exit(0);
+            }*/
         } while(true);
     }
     
@@ -80,16 +86,33 @@ public class ConsoleUI implements UserInterface {
 
     	private void processInput() {
     		
-    		String pattern = ("O([A-I])([0-8])");
-    		String s = readLine();
+    		String pattern = ("[OM]{1}([A-I])([0-8])");
+    		String input = readLine();
     		
     		Pattern p = Pattern.compile(pattern);
-    		Matcher matcher = p.matcher(s); 		
+    		Matcher matcher = p.matcher(input); 		
     		matcher.matches();
     		
+    		if(!matcher.matches()) {
+    			System.out.println("zadajte novy vstup");
+    			return;
+    		}  
     		
-    		
+    		if(matcher.matches()) {
+    			String a = matcher.group(1);
+    			String row = matcher.group(2);
+    			String column = matcher.group(3);
+    			int value = Character.getNumericValue(row.charAt(0)) -10;
     			
+    			if(a.equals('O')) {
+    				field.openTile(value, Integer.parseInt(column));
+    				return;
+    			} else if(a.equals('M')) {
+    				field.markTile(value, Integer.parseInt(column));
+    				return;
+    			}
+    			
+    		}
     		
     	}
 }
