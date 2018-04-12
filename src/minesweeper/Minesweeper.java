@@ -17,8 +17,9 @@ public class Minesweeper {
 	 * Constructooor.
 	 */
 	private Minesweeper() {
-		Field field = new Field(10, 10, 9);
+		Field field = new Field(8, 8, 9);
 		printField(field);
+		System.out.println("Hra zacala")
 		// userInterface = new ConsoleUI();
 		// userInterface.newGameStarted(field);
 	}
