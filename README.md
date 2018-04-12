@@ -1,4 +1,6 @@
 # minesweeper
 Minesweeper hra vytvorena
 
-new line 
+new line
+
+next new line from server
