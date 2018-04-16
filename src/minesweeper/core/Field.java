@@ -69,10 +69,12 @@ public class Field {
 				setState(GameState.FAILED);
 				return;
 			}
-			
-			if(tile instanceof Clue) {
+
+			if (tile instanceof Clue) {
+				if(((Clue) tile).getValue() == 0) {
 				openAdjacentTiles(row, column);
-				return;
+				
+				}
 			}
 
 			if (isSolved()) {
@@ -184,29 +186,31 @@ public class Field {
 
 		return count;
 	}
-	
-	
-	
+
 	private void openAdjacentTiles(int row, int column) {
-		//int count = 0;
-		
 		for (int rowOffset = -1; rowOffset <= 1; rowOffset++) {
 			int actRow = row + rowOffset;
 			if (actRow >= 0 && actRow < getRowCount()) {
 				for (int columnOffset = -1; columnOffset <= 1; columnOffset++) {
 					int actColumn = column + columnOffset;
 					if (actColumn >= 0 && actColumn < getColumnCount()) {
+
+						/*
 						if (tiles[actRow][actColumn] instanceof Clue) {
-						   //if(Tile.Clue == 0) {
-							   openAdjacentTiles(actRow, actColumn);
-						   }
+							if (((Clue) tiles[actRow][actColumn]).getValue() == 0) {
+							*/
+								openTile(actRow, actColumn);
+							}
+
 						}
 					}
 				}
 			}
-		}
-
-		//return count;
+	
+		
+	public  int getRemainingMineCount() {
+		 return mineCount - getNumberOf(State.MARKED);
+	}
 	
 
 	public int getRowCount() {
@@ -217,11 +221,11 @@ public class Field {
 		return columnCount;
 	}
 
-	private int getMineCount() {
+	public int getMineCount() {
 		return mineCount;
 	}
 
-	private GameState getState() {
+	public GameState getState() {
 		return state;
 	}
 

@@ -1,5 +1,6 @@
 package minesweeper;
 
+import minesweeper.consoleui.ConsoleUI;
 import minesweeper.core.Clue;
 import minesweeper.core.Field;
 import minesweeper.core.Mine;
@@ -11,42 +12,28 @@ import minesweeper.core.Tile.State;
  */
 public class Minesweeper {
 	/** User interface. */
-	private UserInterface UserInterface;
+	private UserInterface userInterface;
+	private long startMillis = System.currentTimeMillis();
 
 	/**
 	 * Constructor.
 	 */
 	private Minesweeper() {
 		Field field = new Field(8, 8, 9);
-		printField(field);
+
 		System.out.println("Hra zacala");
-		// userInterface = new ConsoleUI();
-		// userInterface.newGameStarted(field);
+		 userInterface = new ConsoleUI();
+		 userInterface.newGameStarted(field);
 	}
 
-	private void printField(Field field) {
-		for (int row = 0; row < field.getRowCount(); row++) {
-			for (int column = 0; column < field.getColumnCount(); column++) {
-				Tile tile = field.getTile(row, column);
-				tile.setState(State.OPEN);
-				if (tile.getState() == Tile.State.OPEN) {
-					if (tile instanceof Mine) {
-						System.out.print("X");
-					} else if (tile instanceof Clue) {
-						System.out.print(((Clue) tile).getValue());
-					}
-				} else if (tile.getState() == Tile.State.MARKED) {
-					System.out.print("M");
-				} else if (tile.getState() == Tile.State.CLOSED) {
-					System.out.print("-");
-				}
-			}
-			System.out.println();
-		}
-	}
 
 	
 	public static void main(String[] args) {
 		new Minesweeper();
+	}
+	
+	public int getPlayingSeconds() {
+		int i = ((int) (System.currentTimeMillis()- startMillis)) ;
+		return i;
 	}
 }
